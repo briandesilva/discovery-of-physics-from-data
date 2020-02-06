@@ -1,0 +1,13 @@
+ball            weight(oz)  circumference(cm)
+baseball        5           22.25
+bluebasketball  18          75.0
+greenbasketball 16          73.25
+volleyball      ??          ??
+bowlingball     81          67.0
+golfball        1.62        13.8
+tennisball      2           20.75
+wiffleball1     1           22.8
+wiffleball2     1           22.8
+yellowWiffle    1.5         29.0
+orangeWiffle    1.5         29.0
+heavyBowling    208         68.5
