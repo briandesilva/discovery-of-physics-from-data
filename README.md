@@ -16,5 +16,11 @@ Scipy (1.4.1)
 Seaborn (0.9.0)
 ```
 
+Some examples in the supplementary material additionally use the following package.
+
+```
+PySINDy (0.12.0)
+```
+
 ## Where to find the paper
 A preprint of the paper can be found on the [arXiv](https://arxiv.org/abs/1906.07906).
