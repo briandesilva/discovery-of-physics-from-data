@@ -1,5 +1,5 @@
 # Discovery of Physics from Data
-Code to accompany the paper "Discovery of Physics from Data: Universal Laws and Discrepancy Models."
+Code to accompany the paper "Discovery of Physics from Data: Universal Laws and Discrepancies."
 
 The figures from the paper were all generated using the Jupyter notebook `generate_figures.ipynb`. Likewise, the figures from the supplementary material were generated with `supplementary_material.ipynb`.
 
