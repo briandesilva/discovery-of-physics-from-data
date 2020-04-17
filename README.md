@@ -16,10 +16,22 @@ Scipy (1.4.1)
 Seaborn (0.9.0)
 ```
 
+You can install these packages with pip via
+
+```shell
+pip install -r requirements.txt
+```
+
 Some examples in the supplementary material additionally use the following package.
 
 ```
 PySINDy (0.12.0)
+```
+
+PySINDy can be installed with
+
+```
+pip install pysindy
 ```
 
 ## Where to find the paper
