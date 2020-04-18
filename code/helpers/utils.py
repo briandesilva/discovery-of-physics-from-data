@@ -73,9 +73,7 @@ def reynolds_number(velocity, diameter, k_viscosity=2 / 3):
 
 def approx_drag_coeff(re):
     if re:
-        return (24 / re) * (1 + 0.15 * np.power(re, 0.681)) + 0.407 / (
-            1 + 8710 / re
-        )
+        return (24 / re) * (1 + 0.15 * np.power(re, 0.681)) + 0.407 / (1 + 8710 / re)
 
     else:
         return 0
@@ -202,10 +200,7 @@ def plot_prediction(
 
         for k, predicted_h in enumerate(predicted_hs):
             axs[0].plot(
-                t,
-                predicted_h,
-                plot_styles[np.mod(k, len(plot_styles))],
-                label=eqns[k],
+                t, predicted_h, plot_styles[np.mod(k, len(plot_styles))], label=eqns[k],
             )
 
             # Detect larger errors and use log-scale if necessary
@@ -214,9 +209,7 @@ def plot_prediction(
             else:
                 err = np.abs(h - predicted_h)
 
-            axs[1].plot(
-                t, err, plot_styles[np.mod(k, len(plot_styles))], label=eqns[k]
-            )
+            axs[1].plot(t, err, plot_styles[np.mod(k, len(plot_styles))], label=eqns[k])
             if np.max(err) > 15:
                 axs[1].set(yscale="log")
 
@@ -258,3 +251,24 @@ def plot_prediction(
 
 def relative_error(u, u_approx, ord=None):
     return np.linalg.norm(u - u_approx, ord=ord) / np.linalg.norm(u, ord=ord)
+
+
+def resize_fonts(ax, title=20, xaxis=15, yaxis=15, ticks=None):
+    """
+    Resize fonts for title, x-axis, y-axis, and ticks of a given axis.
+    """
+    if isinstance(ax, (list, np.ndarray)):
+        for a in ax:
+            a.title.set_fontsize(title)
+            a.xaxis.label.set_fontsize(xaxis)
+            a.yaxis.label.set_fontsize(yaxis)
+            if ticks:
+                for i in a.get_xticklabels() + a.get_yticklabels():
+                    i.set_fontsize(ticks)
+
+    else:
+        ax.title.set_fontsize(title)
+        ax.xaxis.label.set_fontsize(xaxis)
+        ax.yaxis.label.set_fontsize(yaxis)
+        for i in ax.get_xticklabels() + ax.get_yticklabels():
+            i.set_fontsize(ticks)

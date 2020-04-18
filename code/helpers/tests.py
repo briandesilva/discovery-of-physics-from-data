@@ -3,7 +3,7 @@ from scipy.integrate import odeint
 from pandas import DataFrame
 import matplotlib.pyplot as plt
 
-from .SINDyBall import SINDyBall
+from .sindy_ball import SINDyBall
 from .differentiation import differentiate
 from .utils import need_to_clip, plot_prediction
 
@@ -139,11 +139,7 @@ def test_group_sparsity(
         drag_coeff = None
         if model_to_subtract:
             h = subtract_known_model(
-                h,
-                t,
-                model_to_subtract,
-                drag_coeff=drag_coeff,
-                diff_kws=diff_kws,
+                h, t, model_to_subtract, drag_coeff=drag_coeff, diff_kws=diff_kws,
             )
 
         v = differentiate(h, t, **diff_kws)
@@ -187,9 +183,7 @@ def test_group_sparsity(
         plt.tight_layout()
         plt.show()
 
-    error = DataFrame.from_dict(
-        error, orient="index", columns=["tailored", "baseline"]
-    )
+    error = DataFrame.from_dict(error, orient="index", columns=["tailored", "baseline"])
     return error
 
 

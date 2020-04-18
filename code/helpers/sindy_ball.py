@@ -155,9 +155,7 @@ class SINDyBall:
                 )
                 h_smoothed.append(
                     smooth_data(
-                        h_run,
-                        smoother=self.smoother,
-                        window_length=self.window_length,
+                        h_run, smoother=self.smoother, window_length=self.window_length,
                     )
                 )
                 v.append(v_run)
@@ -186,36 +184,26 @@ class SINDyBall:
                 smoother=self.smoother,
                 window_length=self.window_length,
             )
-            h = smooth_data(
-                h, smoother=self.smoother, window_length=self.window_length
-            )
+            h = smooth_data(h, smoother=self.smoother, window_length=self.window_length)
             self.v0 = v[0]
 
         # Evaluate library on data
         if self.library_type == "nonautonomous":
             if group_sindy:
                 X_full = [
-                    np.stack(
-                        [f(tt, hh, vv) for f in self.library.values()], axis=1
-                    )
+                    np.stack([f(tt, hh, vv) for f in self.library.values()], axis=1)
                     for tt, hh, vv in zip(t, h, v)
                 ]
             else:
-                X_full = np.stack(
-                    [f(t, h, v) for f in self.library.values()], axis=1
-                )
+                X_full = np.stack([f(t, h, v) for f in self.library.values()], axis=1)
         else:
             if group_sindy:
                 X_full = [
-                    np.stack(
-                        [f(hh, vv) for f in self.library.values()], axis=1
-                    )
+                    np.stack([f(hh, vv) for f in self.library.values()], axis=1)
                     for hh, vv in zip(h, v)
                 ]
             else:
-                X_full = np.stack(
-                    [f(h, v) for f in self.library.values()], axis=1
-                )
+                X_full = np.stack([f(h, v) for f in self.library.values()], axis=1)
 
         # Account for known variables
         if group_sindy:
@@ -270,13 +258,9 @@ class SINDyBall:
         if method == "lasso":
 
             if group_sindy:
-                raise ValueError(
-                    "lasso method not yet supported when group_sindy=True"
-                )
+                raise ValueError("lasso method not yet supported when group_sindy=True")
 
-            clf = linear_model.Lasso(
-                alpha=self.thresh, fit_intercept=False, tol=0.001
-            )
+            clf = linear_model.Lasso(alpha=self.thresh, fit_intercept=False, tol=0.001)
             clf.fit(X, dv)
 
             self.mse = np.mean((np.dot(X, clf.coef_) - dv) ** 2)
@@ -467,9 +451,7 @@ class SINDyBall:
         """
         coefficients = self.get_coefficients()
         labels = self.get_labels()
-        df = DataFrame(
-            data=coefficients, index=labels, columns=["Coefficients"]
-        )
+        df = DataFrame(data=coefficients, index=labels, columns=["Coefficients"])
         print(df, "\n")
 
     def print_equation(self):
@@ -479,9 +461,7 @@ class SINDyBall:
         coefficients = self.get_coefficients()
         labels = self.get_labels()
         nonzeros = np.nonzero(coefficients)[0]
-        term_list = [
-            "({:f}*{})".format(coefficients[i], labels[i]) for i in nonzeros
-        ]
+        term_list = ["({:f}*{})".format(coefficients[i], labels[i]) for i in nonzeros]
 
         rhs = " + ".join(term_list)
         if len(rhs) == 0:
@@ -503,9 +483,7 @@ class SINDyBall:
             "({:3.3f}*{})".format(coefficients[i], labels[i]) for i in nonzeros
         ]
 
-        term_list = [
-            "({:f}*{})".format(coefficients[i], labels[i]) for i in nonzeros
-        ]
+        term_list = ["({:f}*{})".format(coefficients[i], labels[i]) for i in nonzeros]
 
         rhs = " + ".join(term_list)
         if len(rhs) == 0:

@@ -89,17 +89,13 @@ def smooth_data(X, smoother="savgol", window_length=35):
         if axis == 0:
             return signal.medfilt(X, kernel_size=window_length)
         else:
-            return np.vstack(
-                [signal.medfilt(x, kernel_size=window_length) for x in X]
-            )
+            return np.vstack([signal.medfilt(x, kernel_size=window_length) for x in X])
 
     if smoother == "wiener":
         if axis == 0:
             return signal.wiener(X, mysize=window_length)
         else:
-            return np.vstack(
-                [signal.wiener(x, mysize=window_length) for x in X]
-            )
+            return np.vstack([signal.wiener(x, mysize=window_length) for x in X])
 
 
 def forward_difference(X, t=1):
@@ -114,9 +110,7 @@ def forward_difference(X, t=1):
         # Uniform timestep
         if np.isscalar(t):
             X_diff = (X[1:] - X[:-1]) / t
-            backward_diff = np.array(
-                [(3 * X[-1] / 2 - 2 * X[-2] + X[-3] / 2) / t]
-            )
+            backward_diff = np.array([(3 * X[-1] / 2 - 2 * X[-2] + X[-3] / 2) / t])
             return np.concatenate((X_diff, backward_diff))
 
         # Variable timestep
@@ -175,10 +169,7 @@ def centered_difference(X, t):
             t_diff = t[2:] - t[:-2]
             X_diff = (X[2:] - X[:-2]) / (t_diff)
             forward_diff = np.array(
-                [
-                    (-11 / 6 * X[0] + 3 * X[1] - 3 / 2 * X[2] + X[3] / 3)
-                    / (t[1] - t[0])
-                ]
+                [(-11 / 6 * X[0] + 3 * X[1] - 3 / 2 * X[2] + X[3] / 3) / (t[1] - t[0])]
             )
             backward_diff = np.array(
                 [
@@ -195,49 +186,23 @@ def centered_difference(X, t):
         if np.isscalar(t):
             X_diff = (X[:, 2:] - X[:, :-2]) / (2 * t)
             forward_diff = (
-                (
-                    -11 / 6 * X[:, 0]
-                    + 3 * X[:, 1]
-                    - 3 / 2 * X[:, 2]
-                    + X[:, 3] / 3
-                )
-                / t
+                (-11 / 6 * X[:, 0] + 3 * X[:, 1] - 3 / 2 * X[:, 2] + X[:, 3] / 3) / t
             ).reshape(X.shape[0], 1)
             backward_diff = (
-                (
-                    11 / 6 * X[:, -1]
-                    - 3 * X[:, -2]
-                    + 3 / 2 * X[:, -3]
-                    - X[:, -4] / 3
-                )
-                / t
+                (11 / 6 * X[:, -1] - 3 * X[:, -2] + 3 / 2 * X[:, -3] - X[:, -4] / 3) / t
             ).reshape(X.shape[0], 1)
-            return np.concatenate(
-                (forward_diff, X_diff, backward_diff), axis=1
-            )
+            return np.concatenate((forward_diff, X_diff, backward_diff), axis=1)
 
         # Variable timestep
         else:
             t_diff = t[2:] - t[:-2]
             X_diff = (X[:, 2:] - X[:, :-2]) / t_diff
             forward_diff = (
-                (
-                    -11 / 6 * X[:, 0]
-                    + 3 * X[:, 1]
-                    - 3 / 2 * X[:, 2]
-                    + X[:, 3] / 3
-                )
+                (-11 / 6 * X[:, 0] + 3 * X[:, 1] - 3 / 2 * X[:, 2] + X[:, 3] / 3)
                 / (t_diff[0] / 2)
             ).reshape(X.shape[0], 1)
             backward_diff = (
-                (
-                    11 / 6 * X[:, -1]
-                    - 3 * X[:, -2]
-                    + 3 / 2 * X[:, -3]
-                    - X[:, -4] / 3
-                )
+                (11 / 6 * X[:, -1] - 3 * X[:, -2] + 3 / 2 * X[:, -3] - X[:, -4] / 3)
                 / (t_diff[-1] / 2)
             ).reshape(X.shape[0], 1)
-            return np.concatenate(
-                (forward_diff, X_diff, backward_diff), axis=1
-            )
+            return np.concatenate((forward_diff, X_diff, backward_diff), axis=1)
