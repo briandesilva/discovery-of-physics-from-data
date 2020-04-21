@@ -36,3 +36,14 @@ pip install pysindy
 
 ## Where to find the paper
 A preprint of the paper can be found on the [arXiv](https://arxiv.org/abs/1906.07906).
+
+## Citing the paper
+
+```
+@article{de2019discovery,
+  title={Discovery of physics from data: Universal laws and discrepancies},
+  author={de Silva, Brian and Higdon, David M and Brunton, Steven L and Kutz, J Nathan},
+  journal={arXiv preprint arXiv:1906.07906},
+  year={2019}
+}
+```
